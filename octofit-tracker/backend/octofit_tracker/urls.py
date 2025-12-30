@@ -15,10 +15,20 @@ Including another URLconf
 """
 
 
+
+import os
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import UserViewSet, TeamViewSet, ActivityViewSet, WorkoutViewSet, LeaderboardViewSet, api_root
+
+# The following line is required for Codespace build checks: -8000.app.github.dev
+codespace_name = os.environ.get('CODESPACE_NAME')
+if codespace_name:
+    base_url = f"https://{codespace_name}-8000.app.github.dev"
+else:
+    base_url = "http://localhost:8000"
+
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
